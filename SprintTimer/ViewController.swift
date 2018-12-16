@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
-
+  @IBOutlet weak var videoPreviewView: UIView!
+  
+  var captureSession: AVCaptureSession?
+  var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    //should use discovery session instead and check for available cameras first
+    let captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
   }
 
 
