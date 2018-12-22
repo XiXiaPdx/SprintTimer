@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 
     // sets the videopreviewLayer size to be bound by the view I created.
     videoPreviewLayer?.frame = videoPreviewView.layer.bounds
-    
+        
     /*
      can change the size of the frame
      

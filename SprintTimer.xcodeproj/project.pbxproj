@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0F030423653D5C47558DE0D /* Pods_SprintTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F977352F788646ACB8DAB649 /* Pods_SprintTimer.framework */; };
 		D54982F321C6F7C50047AF3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54982F221C6F7C50047AF3D /* AppDelegate.swift */; };
 		D54982F521C6F7C50047AF3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54982F421C6F7C50047AF3D /* ViewController.swift */; };
 		D54982F821C6F7C50047AF3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54982F621C6F7C50047AF3D /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D2034DC759021298CFAAD6C /* Pods-SprintTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SprintTimer.release.xcconfig"; path = "Pods/Target Support Files/Pods-SprintTimer/Pods-SprintTimer.release.xcconfig"; sourceTree = "<group>"; };
+		8B973895D0481F6E493A1401 /* Pods-SprintTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SprintTimer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SprintTimer/Pods-SprintTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		D54982EF21C6F7C50047AF3D /* SprintTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SprintTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54982F221C6F7C50047AF3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D54982F421C6F7C50047AF3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		D54982F921C6F7C60047AF3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D54982FC21C6F7C60047AF3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D54982FE21C6F7C60047AF3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F977352F788646ACB8DAB649 /* Pods_SprintTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SprintTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F030423653D5C47558DE0D /* Pods_SprintTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E6DE11E44A3CEDB74CE204E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F977352F788646ACB8DAB649 /* Pods_SprintTimer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		35A1100E4637842F92C861EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B973895D0481F6E493A1401 /* Pods-SprintTimer.debug.xcconfig */,
+				5D2034DC759021298CFAAD6C /* Pods-SprintTimer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D54982E621C6F7C50047AF3D = {
 			isa = PBXGroup;
 			children = (
 				D54982F121C6F7C50047AF3D /* SprintTimer */,
 				D54982F021C6F7C50047AF3D /* Products */,
+				35A1100E4637842F92C861EC /* Pods */,
+				1E6DE11E44A3CEDB74CE204E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +95,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D549830121C6F7C60047AF3D /* Build configuration list for PBXNativeTarget "SprintTimer" */;
 			buildPhases = (
+				31DC13CF3EA20DE2BFBF3E55 /* [CP] Check Pods Manifest.lock */,
 				D54982EB21C6F7C50047AF3D /* Sources */,
 				D54982EC21C6F7C50047AF3D /* Frameworks */,
 				D54982ED21C6F7C50047AF3D /* Resources */,
@@ -129,6 +154,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		31DC13CF3EA20DE2BFBF3E55 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SprintTimer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D54982EB21C6F7C50047AF3D /* Sources */ = {
@@ -280,6 +326,7 @@
 		};
 		D549830221C6F7C60047AF3D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B973895D0481F6E493A1401 /* Pods-SprintTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +345,7 @@
 		};
 		D549830321C6F7C60047AF3D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D2034DC759021298CFAAD6C /* Pods-SprintTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
