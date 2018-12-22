@@ -13,6 +13,7 @@
 		D54982F821C6F7C50047AF3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54982F621C6F7C50047AF3D /* Main.storyboard */; };
 		D54982FA21C6F7C60047AF3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54982F921C6F7C60047AF3D /* Assets.xcassets */; };
 		D54982FD21C6F7C60047AF3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54982FB21C6F7C60047AF3D /* LaunchScreen.storyboard */; };
+		D54D56D121CE926C004A6033 /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = D54D56D021CE926C004A6033 /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,9 @@
 		D54982F921C6F7C60047AF3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D54982FC21C6F7C60047AF3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D54982FE21C6F7C60047AF3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D54D56CC21CE910A004A6033 /* SprintTimer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SprintTimer-Bridging-Header.h"; sourceTree = "<group>"; };
+		D54D56CF21CE924F004A6033 /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		D54D56D021CE926C004A6033 /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		F977352F788646ACB8DAB649 /* Pods_SprintTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SprintTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +88,9 @@
 				D54982F921C6F7C60047AF3D /* Assets.xcassets */,
 				D54982FB21C6F7C60047AF3D /* LaunchScreen.storyboard */,
 				D54982FE21C6F7C60047AF3D /* Info.plist */,
+				D54D56CC21CE910A004A6033 /* SprintTimer-Bridging-Header.h */,
+				D54D56CF21CE924F004A6033 /* OpenCVWrapper.h */,
+				D54D56D021CE926C004A6033 /* OpenCVWrapper.mm */,
 			);
 			path = SprintTimer;
 			sourceTree = "<group>";
@@ -121,6 +128,7 @@
 				TargetAttributes = {
 					D54982EE21C6F7C50047AF3D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -183,6 +191,7 @@
 			files = (
 				D54982F521C6F7C50047AF3D /* ViewController.swift in Sources */,
 				D54982F321C6F7C50047AF3D /* AppDelegate.swift in Sources */,
+				D54D56D121CE926C004A6033 /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +338,7 @@
 			baseConfigurationReference = 8B973895D0481F6E493A1401 /* Pods-SprintTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VS55F6A5P3;
 				INFOPLIST_FILE = SprintTimer/Info.plist;
@@ -338,6 +348,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xixia.SprintTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SprintTimer/SprintTimer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -348,6 +360,7 @@
 			baseConfigurationReference = 5D2034DC759021298CFAAD6C /* Pods-SprintTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VS55F6A5P3;
 				INFOPLIST_FILE = SprintTimer/Info.plist;
@@ -357,6 +370,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xixia.SprintTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SprintTimer/SprintTimer-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

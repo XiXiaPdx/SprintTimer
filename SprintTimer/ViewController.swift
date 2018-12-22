@@ -47,13 +47,8 @@ class ViewController: UIViewController {
     videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
 
     // sets the videopreviewLayer size to be bound by the view I created.
+    videoPreviewView.layer.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
     videoPreviewLayer?.frame = videoPreviewView.layer.bounds
-        
-    /*
-     can change the size of the frame
-     
-    videoPreviewLayer?.frame = CGRect(x: 0, y: 0, width: 200, height: 300)
-    */
     
     videoPreviewView.layer.addSublayer(videoPreviewLayer!)
     
