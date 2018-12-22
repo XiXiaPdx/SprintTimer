@@ -64,14 +64,18 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
     frameCounter += 1
     
     //convert SampleBuffer to Image
-    
-    
+    let image: UIImage = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
+   
+    // second image is showing up but causing memory crash
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")
+       let imageView = UIImageView(image: image)
+      
+      self.blackWhitePreview.addSubview(imageView)
     }
     
-    
   }
-
 }
+
+
 
