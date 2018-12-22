@@ -13,6 +13,8 @@ class ViewController: UIViewController {
   @IBOutlet weak var videoPreviewView: UIView!
   @IBOutlet weak var outputLog: UILabel!
   
+  @IBOutlet weak var blackWhitePreview: UIView!
+  
   var captureSession: AVCaptureSession?
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var captureDeviceInput: AVCaptureDeviceInput?
@@ -60,9 +62,15 @@ class ViewController: UIViewController {
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     frameCounter += 1
+    
+    //convert SampleBuffer to Image
+    
+    
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")
     }
+    
+    
   }
 
 }
