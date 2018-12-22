@@ -64,12 +64,16 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
     frameCounter += 1
     
     //convert SampleBuffer to Image
-    let image: UIImage = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
+    let imageColor: UIImage = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
+    
+    //using the openCV Wrapper cleared memory issue somehow. Look into OpenCv convert buffer to UI Image. 
+    let image: UIImage = OpenCVWrapper.convert(imageColor)
    
-    // second image is showing up but causing memory crash
+
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")
        let imageView = UIImageView(image: image)
+      imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
       
       self.blackWhitePreview.addSubview(imageView)
     }
