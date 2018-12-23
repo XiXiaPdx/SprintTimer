@@ -8,36 +8,38 @@
 
 #import <opencv2/opencv.hpp>
 #import <opencv2/imgcodecs/ios.h>
+#import "OpenCVWrapper.h"
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+//#import <Foundation/Foundation.h>
+//#import <UIKit/UIKit.h>
 
 @implementation OpenCVWrapper : NSObject
 
+// this is much faster than buffer -> image -> mat -> image.  But memory issue somewhere causing crash
 
-
-
-+(UIImage *)ConvertImage:(UIImage *)image {
-  cv::Mat mat;
++(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer {
   
-  // motion detection stuff
-  cv::Mat fgMask;
-  cv::Ptr<cv::BackgroundSubtractor> pBackSub;
+  CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
+  CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
   
-  pBackSub = cv::createBackgroundSubtractorMOG2();
-
-  UIImageToMat(image, mat);
+  //Processing here
+  int bufferWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
+  int bufferHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
+  unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
   
-  pBackSub->apply(mat, fgMask);
+  //put buffer in open cv, no memory copied
+  cv::Mat mat = cv::Mat(bufferHeight,bufferWidth,CV_8UC4,pixel,CVPixelBufferGetBytesPerRow(pixelBuffer));
   
-//  cv::Mat gray;
-//  cv::cvtColor(mat, gray, CV_RGB2GRAY);
-//
-//  cv::Mat bin;
-//  cv::threshold(gray, bin, 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+  //End processing
+  CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
   
-  UIImage *binImg = MatToUIImage(fgMask);
-  return binImg;
+  cv::Mat matGray;
+  cvtColor(mat, matGray, CV_BGR2GRAY);
+  
+  //Convert Mat to UIImage
+  
+  UIImage *grayImg = MatToUIImage(matGray);
+  return grayImg;
 }
 
 @end

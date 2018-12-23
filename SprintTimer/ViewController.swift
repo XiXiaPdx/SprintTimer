@@ -67,7 +67,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
     let imageColor: UIImage = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
     
     //using the openCV Wrapper cleared memory issue somehow. Look into OpenCv convert buffer to UI Image. 
-    let image: UIImage = OpenCVWrapper.convert(imageColor)
+    let image: UIImage = OpenCVWrapper.image(from: sampleBuffer)
    
 
     DispatchQueue.main.async {

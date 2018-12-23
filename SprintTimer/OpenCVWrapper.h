@@ -6,14 +6,16 @@
 //  Copyright © 2018 Xi Xia. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "OpenCVWrapper.h"
 
 #ifndef OpenCVWrapper_h
 #define OpenCVWrapper_h
 
 @interface OpenCVWrapper : NSObject
-+(UIImage *)ConvertImage:(UIImage *)image;
++(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer;
 @end
 
 #endif /* OpenCVWrapper_h */
