@@ -13,16 +13,18 @@ class ViewController: UIViewController {
   @IBOutlet weak var videoPreviewView: UIView!
   @IBOutlet weak var outputLog: UILabel!
   
-  @IBOutlet weak var blackWhitePreview: UIView!
+  @IBOutlet weak var blackWhitePreview: UIImageView!
   
   var captureSession: AVCaptureSession?
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var captureDeviceInput: AVCaptureDeviceInput?
   var videoOutput: AVCaptureVideoDataOutput?
   var frameCounter: Int = 0
+  var image: UIImage?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+  
     //should use discovery session instead, seems more robust
     let captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
     
@@ -60,24 +62,19 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
+  
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     frameCounter += 1
     
-    //convert SampleBuffer to Image
-    let imageColor: UIImage = CameraUtil.imageFromSampleBuffer(buffer: sampleBuffer)
-    
-    //using the openCV Wrapper cleared memory issue somehow. Look into OpenCv convert buffer to UI Image. 
-    let image: UIImage = OpenCVWrapper.image(from: sampleBuffer)
-   
+    image = OpenCVWrapper.image(from: sampleBuffer)
 
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")
-       let imageView = UIImageView(image: image)
-      imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
       
-      self.blackWhitePreview.addSubview(imageView)
+//      let imageView = UIImageView(image: self.image)
+//      imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
+      self.blackWhitePreview.image = self.image
     }
-    
   }
 }
 

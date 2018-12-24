@@ -19,26 +19,31 @@
 
 +(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer {
   
+
   CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
+
   CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
-  
+
   //Processing here
   int bufferWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
   int bufferHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
   unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
-  
+
   //put buffer in open cv, no memory copied
   cv::Mat mat = cv::Mat(bufferHeight,bufferWidth,CV_8UC4,pixel,CVPixelBufferGetBytesPerRow(pixelBuffer));
-  
+
   //End processing
   CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
+
   
   cv::Mat matGray;
   cvtColor(mat, matGray, CV_BGR2GRAY);
-  
+
   //Convert Mat to UIImage
-  
+
   UIImage *grayImg = MatToUIImage(matGray);
+  
+//  UIImage *fakeImg =[[UIImage alloc] init];
   return grayImg;
 }
 

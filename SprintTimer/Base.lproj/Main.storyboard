@@ -23,14 +23,6 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="erg-vk-VkE">
-                                <rect key="frame" x="348" y="70" width="200" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="MI5-Te-aZ1"/>
-                                    <constraint firstAttribute="height" constant="200" id="SnR-G4-Mep"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLE-cr-qmm">
                                 <rect key="frame" x="370" y="16" width="150" height="24"/>
                                 <constraints>
@@ -41,18 +33,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="En5-dG-tKQ">
+                                <rect key="frame" x="307" y="48" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Ahz-ya-iL9"/>
+                                    <constraint firstAttribute="height" constant="250" id="tbJ-eY-1Yd"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="erg-vk-VkE" secondAttribute="trailing" constant="20" id="JDu-bc-SV2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WLE-cr-qmm" secondAttribute="trailing" constant="48" id="M6a-Oh-ujX"/>
                             <constraint firstItem="WLE-cr-qmm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="MnU-wi-03H"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="erg-vk-VkE" secondAttribute="bottom" constant="50" id="tr9-x8-WBt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="En5-dG-tKQ" secondAttribute="bottom" constant="22" id="coV-Tk-baT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="En5-dG-tKQ" secondAttribute="trailing" constant="11" id="lwa-7d-kbC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="blackWhitePreview" destination="erg-vk-VkE" id="P32-0H-Whj"/>
+                        <outlet property="blackWhitePreview" destination="En5-dG-tKQ" id="QpM-B3-smQ"/>
                         <outlet property="outputLog" destination="WLE-cr-qmm" id="YeG-PD-QMl"/>
                         <outlet property="videoPreviewView" destination="cQ8-Iw-g63" id="W73-mN-h2N"/>
                     </connections>
