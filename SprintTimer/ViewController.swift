@@ -66,7 +66,8 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
   func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     frameCounter += 1
     
-    image = OpenCVWrapper.image(from: sampleBuffer)
+//    image = OpenCVWrapper.image(from: sampleBuffer)
+    image = OpenCVWrapper.motionMask(sampleBuffer)
 
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")

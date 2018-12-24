@@ -47,6 +47,19 @@
   return grayImg;
 }
 
++(UIImage *)MotionMask:(CMSampleBufferRef)buffer {
+  cv::Mat frame, fgmask;
+  
+  //add code for converting buffer to mat here
+  
+  cv::BackgroundSubtractor *pBackSub;
+  pBackSub = cv::createBackgroundSubtractorMOG2();
+  pBackSub->apply(frame, fgmask);
+  UIImage *image = MatToUIImage(fgmask);
+  return image;
+}
+
+
 @end
 
 
