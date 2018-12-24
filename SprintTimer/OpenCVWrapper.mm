@@ -48,13 +48,30 @@
 }
 
 +(UIImage *)MotionMask:(CMSampleBufferRef)buffer {
-  cv::Mat frame, fgmask;
   
   //add code for converting buffer to mat here
+  CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
   
-  cv::BackgroundSubtractor *pBackSub;
+  CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+  cv::Mat frame, fgmask;
+
+  //Processing here
+  int bufferWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
+  int bufferHeight = (int)CVPixelBufferGetHeight(pixelBuffer);
+  unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
+  
+  //put buffer in open cv, no memory copied
+   frame = cv::Mat(bufferHeight,bufferWidth,CV_8UC4,pixel,CVPixelBufferGetBytesPerRow(pixelBuffer));
+  
+  cv::Ptr<cv::BackgroundSubtractor> pBackSub;
   pBackSub = cv::createBackgroundSubtractorMOG2();
-  pBackSub->apply(frame, fgmask);
+ 
+  
+  pBackSub->apply (frame, fgmask);
+  
+  //End processing
+  CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
+
   UIImage *image = MatToUIImage(fgmask);
   return image;
 }
