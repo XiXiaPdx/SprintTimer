@@ -81,6 +81,11 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   
   if (whitePixelCount > 100000) {
     NSLog(@"%i", whitePixelCount);
+    NSDate * now = [NSDate date];
+    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+    [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
+    NSString *newDateString = [outputFormatter stringFromDate:now];
+    NSLog(@"newDateString %@", newDateString);
 
   }
   
