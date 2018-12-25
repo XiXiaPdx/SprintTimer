@@ -54,6 +54,7 @@ class ViewController: UIViewController {
     videoPreviewView.layer.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
     videoPreviewLayer?.frame = videoPreviewView.layer.bounds
     
+    //this shows the preview image on the screen
     videoPreviewView.layer.addSublayer(videoPreviewLayer!)
     
     // start capturing

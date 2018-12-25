@@ -15,7 +15,7 @@
 
 @implementation OpenCVWrapper : NSObject
 
-// this is much faster than buffer -> image -> mat -> image.  But memory issue somewhere causing crash
+cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2();
 
 +(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer {
   
@@ -63,16 +63,13 @@
   //put buffer in open cv, no memory copied
    frame = cv::Mat(bufferHeight,bufferWidth,CV_8UC4,pixel,CVPixelBufferGetBytesPerRow(pixelBuffer));
   
-  cv::Ptr<cv::BackgroundSubtractor> pBackSub;
-  pBackSub = cv::createBackgroundSubtractorMOG2();
- 
-  
-  pBackSub->apply (frame, fgmask);
-  
   //End processing
   CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
+  
+  //Background subtraction processing
+  pBackSub->apply (frame, fgmask);
 
-  UIImage *image = MatToUIImage(fgmask);
+  UIImage *image = MatToUIImage(frame);
   return image;
 }
 
