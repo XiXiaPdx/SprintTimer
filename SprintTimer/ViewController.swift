@@ -78,7 +78,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
       self.blackWhitePreview.image = self.imageAndTime?.value(forKey: "image") as! UIImage
       let checkMotion = self.imageAndTime?.value(forKey: "time") as! String
       if checkMotion != "0" {
-        print(checkMotion)
+        self.captureSession?.stopRunning()
       }
     }
   }

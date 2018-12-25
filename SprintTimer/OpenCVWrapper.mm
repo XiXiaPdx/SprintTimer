@@ -103,7 +103,6 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   
   NSString *noMotion = @"0";
   [imageAndTime setObject:noMotion  forKey:@"time"];
-
   return imageAndTime;
 }
 
