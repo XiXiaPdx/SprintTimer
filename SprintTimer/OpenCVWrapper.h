@@ -16,7 +16,7 @@
 
 @interface OpenCVWrapper : NSObject
 +(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer;
-+(UIImage *)MotionMask:(CMSampleBufferRef)buffer;
++(NSMutableDictionary *)MotionMask:(CMSampleBufferRef)buffer;
 
 @end
 

@@ -49,8 +49,9 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   return grayImg;
 }
 
-+(UIImage *)MotionMask:(CMSampleBufferRef)buffer {
++(NSMutableDictionary *)MotionMask:(CMSampleBufferRef)buffer {
   
+  NSMutableDictionary *imageAndTime = [NSMutableDictionary dictionary];
   //add code for converting buffer to mat here
   CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
   
@@ -77,21 +78,31 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   //this seemed to make background black, foreground white
   cv::threshold(fgmask, fgmask, 10, 255, CV_THRESH_BINARY);
   
-  int whitePixelCount = cv::countNonZero(fgmask);
   
+  UIImage *image = MatToUIImage(fgmask);
+  //set the image in the dictionary for return
+  [imageAndTime setObject:image forKey:@"image"];
+
+  //checking for motion by counting white pixels
+  int whitePixelCount = cv::countNonZero(fgmask);
   if (whitePixelCount > 100000) {
-    NSLog(@"%i", whitePixelCount);
+    
+    //set the current time into dictionary for return
     NSDate * now = [NSDate date];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
     NSString *newDateString = [outputFormatter stringFromDate:now];
-    NSLog(@"newDateString %@", newDateString);
+    [imageAndTime setObject:newDateString  forKey:@"time"];
+    return imageAndTime;
+//    NSLog(@"newDateString %@", newDateString);
+    //    NSLog(@"%i", whitePixelCount);
 
   }
   
+  NSString *noMotion = @"0";
+  [imageAndTime setObject:noMotion  forKey:@"time"];
 
-  UIImage *image = MatToUIImage(fgmask);
-  return image;
+  return imageAndTime;
 }
 
 
