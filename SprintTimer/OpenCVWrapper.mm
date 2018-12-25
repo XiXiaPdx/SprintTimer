@@ -15,7 +15,7 @@
 
 @implementation OpenCVWrapper : NSObject
 
-cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2();
+cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(1,100.0,false);
 
 +(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer {
   
@@ -67,9 +67,12 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
   
   //Background subtraction processing
-  pBackSub->apply (frame, fgmask);
-
-  UIImage *image = MatToUIImage(frame);
+  pBackSub->apply (frame, fgmask, 0);
+  
+  //this seemed to make background black, foreground white
+  cv::threshold(fgmask, fgmask, 10, 255, CV_THRESH_BINARY);
+  
+  UIImage *image = MatToUIImage(fgmask);
   return image;
 }
 
