@@ -19,7 +19,7 @@ class ViewController: UIViewController {
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var captureDeviceInput: AVCaptureDeviceInput?
   var videoOutput: AVCaptureVideoDataOutput?
-  var frameCounter: Int = 0
+  var frameCounter: Int32 = 0
   var imageAndTime: NSMutableDictionary?
   
   override func viewDidLoad() {
@@ -68,7 +68,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
     frameCounter += 1
     
 //    image = OpenCVWrapper.image(from: sampleBuffer)
-    imageAndTime = OpenCVWrapper.motionMask(sampleBuffer) as NSMutableDictionary?
+    imageAndTime = OpenCVWrapper.motionMask(sampleBuffer, frameCounter) as NSMutableDictionary?
 
     DispatchQueue.main.async {
       self.outputLog.text = String("Frame # \(self.frameCounter)")

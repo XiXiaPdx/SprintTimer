@@ -49,7 +49,7 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   return grayImg;
 }
 
-+(NSMutableDictionary *)MotionMask:(CMSampleBufferRef)buffer {
++(NSMutableDictionary *)MotionMask:(CMSampleBufferRef)buffer :(int)frameNumber {
   
   NSMutableDictionary *imageAndTime = [NSMutableDictionary dictionary];
   //add code for converting buffer to mat here
@@ -74,7 +74,6 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   
   pBackSub->apply(frame, fgmask, 0.5);
   
-  
   //this seemed to make background black, foreground white
   cv::threshold(fgmask, fgmask, 10, 255, CV_THRESH_BINARY);
   
@@ -84,19 +83,22 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   [imageAndTime setObject:image forKey:@"image"];
 
   //checking for motion by counting white pixels
-  int whitePixelCount = cv::countNonZero(fgmask);
-  if (whitePixelCount > 100000) {
-    
-    //set the current time into dictionary for return
-    NSDate * now = [NSDate date];
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
-    NSString *newDateString = [outputFormatter stringFromDate:now];
-    [imageAndTime setObject:newDateString  forKey:@"time"];
-    return imageAndTime;
-//    NSLog(@"newDateString %@", newDateString);
-    //    NSLog(@"%i", whitePixelCount);
+  
+  if(frameNumber > 30){
+    int whitePixelCount = cv::countNonZero(fgmask);
+    if (whitePixelCount > 100000) {
+      
+      //set the current time into dictionary for return
+      NSDate * now = [NSDate date];
+      NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+      [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
+      NSString *newDateString = [outputFormatter stringFromDate:now];
+      [imageAndTime setObject:newDateString  forKey:@"time"];
+      return imageAndTime;
+  //    NSLog(@"newDateString %@", newDateString);
+      //    NSLog(@"%i", whitePixelCount);
 
+    }
   }
   
   NSString *noMotion = @"0";
@@ -104,7 +106,6 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
 
   return imageAndTime;
 }
-
 
 @end
 
