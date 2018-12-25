@@ -15,7 +15,9 @@
 
 @implementation OpenCVWrapper : NSObject
 
-cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(1,100.0,false);
+//the "varThreshold" 100.0
+
+cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(1,25.0,false);
 
 +(UIImage *)ImageFromBuffer:(CMSampleBufferRef)buffer {
   
@@ -53,7 +55,7 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(buffer);
   
   CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
-  cv::Mat frame, fgmask;
+  cv::Mat frame, fgmask, bgMask;
 
   //Processing here
   int bufferWidth = (int)CVPixelBufferGetWidth(pixelBuffer);
@@ -67,11 +69,22 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
   
   //Background subtraction processing
-  pBackSub->apply (frame, fgmask, 0);
+  //the 0.1 is "learning rate". If it was 0, it would never learn and change the background.  Meaning, whatever was the first frame is assumed to be always the background and never changes. Maximum value is 1, which means every frame is a new background.
+  
+  pBackSub->apply(frame, fgmask, 0.5);
+  
   
   //this seemed to make background black, foreground white
   cv::threshold(fgmask, fgmask, 10, 255, CV_THRESH_BINARY);
   
+  int whitePixelCount = cv::countNonZero(fgmask);
+  
+  if (whitePixelCount > 100000) {
+    NSLog(@"%i", whitePixelCount);
+
+  }
+  
+
   UIImage *image = MatToUIImage(fgmask);
   return image;
 }
