@@ -60,6 +60,11 @@ class ViewController: UIViewController {
     // start capturing
     captureSession?.startRunning()
   }
+  
+  
+  @IBAction func restartCameraTapped(_ sender: Any) {
+    frameCounter = 0
+  }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
