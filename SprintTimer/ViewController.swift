@@ -37,6 +37,7 @@ class ViewController: UIViewController {
     
     //initialize captureSession
     captureSession = AVCaptureSession()
+    captureSession?.sessionPreset = AVCaptureSession.Preset.vga640x480
     videoOutput = AVCaptureVideoDataOutput()
     videoOutput?.videoSettings = [kCVPixelBufferPixelFormatTypeKey:kCVPixelFormatType_32BGRA] as [String : Any]
 
