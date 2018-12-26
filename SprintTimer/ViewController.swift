@@ -21,12 +21,13 @@ class ViewController: UIViewController {
   var videoOutput: AVCaptureVideoDataOutput?
   var frameCounter: Int32 = 0
   var imageAndTime: NSMutableDictionary?
+  var captureDevice: AVCaptureDevice?
   
   override func viewDidLoad() {
     super.viewDidLoad()
   
     //should use discovery session instead, seems more robust
-    let captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
+    captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
     
     // now check if this device is available when setting input
     do{
@@ -45,7 +46,20 @@ class ViewController: UIViewController {
     
     videoOutput?.setSampleBufferDelegate(self, queue: DispatchQueue(label:"sample buffer"))
     captureSession?.addInput(captureDeviceInput!)
+    
+    //set frame rate
+    do{
+      try captureDevice?.lockForConfiguration()
+      captureDevice?.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 60)
+      captureDevice?.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 60)
+      captureDevice?.unlockForConfiguration()
+    } catch {
+      return
+    }
+
+
     captureSession?.addOutput(videoOutput!)
+    
     
     //set up preview layer to see video
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
