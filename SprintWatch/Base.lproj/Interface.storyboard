@@ -18,6 +18,9 @@
                             <color key="textColor" red="0.47637600052068096" green="1" blue="0.18746535652138152" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </label>
                     </items>
+                    <connections>
+                        <outlet property="X_Accel_Label" destination="btb-K1-wFJ" id="b2a-dM-7Mr"/>
+                    </connections>
                 </controller>
             </objects>
         </scene>
