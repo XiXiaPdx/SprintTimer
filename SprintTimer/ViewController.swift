@@ -115,6 +115,14 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
         return
       } else {
         self.captureSession?.stopRunning()
+        guard let watchStartTime = self.watchStartTime else {
+          print("watchStartTime is nil")
+          return
+        }
+        let difference =         (checkMotion as! Date).timeIntervalSince(watchStartTime)
+        
+        self.timeLabel.text = String(format: "%.3f", difference)
+
       }
     }
   }
