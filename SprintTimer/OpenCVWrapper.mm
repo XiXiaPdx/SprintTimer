@@ -86,7 +86,7 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
   
   if(frameNumber > 30){
     int whitePixelCount = cv::countNonZero(fgmask);
-    if (whitePixelCount > 100000) {
+    if (whitePixelCount > (bufferWidth * bufferHeight)/4) {
       
       //set the current time into dictionary for return
       NSDate * now = [NSDate date];
@@ -95,7 +95,7 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
       NSString *newDateString = [outputFormatter stringFromDate:now];
       [imageAndTime setObject:newDateString  forKey:@"time"];
       return imageAndTime;
-  //    NSLog(@"newDateString %@", newDateString);
+//      NSLog(@"newDateString %@", newDateString);
       //    NSLog(@"%i", whitePixelCount);
 
     }

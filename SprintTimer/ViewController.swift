@@ -21,12 +21,13 @@ class ViewController: UIViewController {
   var videoOutput: AVCaptureVideoDataOutput?
   var frameCounter: Int32 = 0
   var imageAndTime: NSMutableDictionary?
+  var captureDevice: AVCaptureDevice?
   
   override func viewDidLoad() {
     super.viewDidLoad()
   
     //should use discovery session instead, seems more robust
-    let captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
+    captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
     
     // now check if this device is available when setting input
     do{
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
     
     //initialize captureSession
     captureSession = AVCaptureSession()
+    captureSession?.sessionPreset = AVCaptureSession.Preset.vga640x480
     videoOutput = AVCaptureVideoDataOutput()
     videoOutput?.videoSettings = [kCVPixelBufferPixelFormatTypeKey:kCVPixelFormatType_32BGRA] as [String : Any]
 
@@ -44,20 +46,39 @@ class ViewController: UIViewController {
     
     videoOutput?.setSampleBufferDelegate(self, queue: DispatchQueue(label:"sample buffer"))
     captureSession?.addInput(captureDeviceInput!)
+    
+    //set frame rate
+    do{
+      try captureDevice?.lockForConfiguration()
+      captureDevice?.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 60)
+      captureDevice?.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 60)
+      captureDevice?.unlockForConfiguration()
+    } catch {
+      return
+    }
+
+
     captureSession?.addOutput(videoOutput!)
+    
     
     //set up preview layer to see video
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
     videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
 
     // sets the videopreviewLayer size to be bound by the view I created.
-    videoPreviewView.layer.bounds = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
-    videoPreviewLayer?.frame = videoPreviewView.layer.bounds
+    
+    videoPreviewLayer?.frame = videoPreviewView.bounds
     
     //this shows the preview image on the screen
     videoPreviewView.layer.addSublayer(videoPreviewLayer!)
     
     // start capturing
+    captureSession?.startRunning()
+  }
+  
+  
+  @IBAction func restartCameraTapped(_ sender: Any) {
+    frameCounter = 0
     captureSession?.startRunning()
   }
 }
