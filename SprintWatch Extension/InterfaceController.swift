@@ -63,15 +63,15 @@ class InterfaceController: WKInterfaceController {
         self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
         self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
         
-        let dateFormatter : DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm:ss:SS"
-        let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        self?.timeStampLabel.setText(dateString)
+//        let dateFormatter : DateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "mm:ss:SS"
+//        let date = Date()
+//        let dateString = dateFormatter.string(from: date)
+//        self?.timeStampLabel.setText(dateString)
         
         //update to phone
         if let validSession = self?.session {
-          let watchContext = ["startTime": dateString]
+          let watchContext = ["startTime": Date()]
           do {
             try validSession.updateApplicationContext(watchContext)
             

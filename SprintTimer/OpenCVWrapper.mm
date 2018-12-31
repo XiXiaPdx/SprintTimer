@@ -90,10 +90,10 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
       
       //set the current time into dictionary for return
       NSDate * now = [NSDate date];
-      NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-      [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
-      NSString *newDateString = [outputFormatter stringFromDate:now];
-      [imageAndTime setObject:newDateString  forKey:@"time"];
+//      NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+//      [outputFormatter setDateFormat:@"HH:mm:ss:SS"];
+//      NSString *newDateString = [outputFormatter stringFromDate:now];
+      [imageAndTime setObject:now  forKey:@"time"];
       return imageAndTime;
 //      NSLog(@"newDateString %@", newDateString);
       //    NSLog(@"%i", whitePixelCount);
@@ -101,8 +101,8 @@ cv::Ptr<cv::BackgroundSubtractor> pBackSub = cv::createBackgroundSubtractorMOG2(
     }
   }
   
-  NSString *noMotion = @"0";
-  [imageAndTime setObject:noMotion  forKey:@"time"];
+//  NSString *noMotion = @"0";
+  [imageAndTime setObject:[NSNull null]  forKey:@"time"];
   return imageAndTime;
 }
 

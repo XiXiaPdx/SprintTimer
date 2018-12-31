@@ -18,6 +18,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var timeLabel: UILabel!
   
   var session: WCSession?
+  var watchStartTime: Date?
 
   var captureSession: AVCaptureSession?
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -109,9 +110,11 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
 //      let imageView = UIImageView(image: self.image)
 //      imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
       self.blackWhitePreview.image = self.imageAndTime?.value(forKey: "image") as! UIImage
-      let checkMotion = self.imageAndTime?.value(forKey: "time") as! String
-      if checkMotion != "0" {
-        self.captureSession?.stopRunning()      
+      let checkMotion = self.imageAndTime?.value(forKey: "time")
+      if checkMotion is NSNull {
+        return
+      } else {
+        self.captureSession?.stopRunning()
       }
     }
   }
@@ -120,11 +123,8 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
 extension ViewController: WCSessionDelegate {
   
   func processApplicationContext() {
-    if let watchContext = session?.receivedApplicationContext as? [String : String] {
-      
-     
-      timeLabel.text = watchContext["startTime"]
-
+    if let watchContext = session?.receivedApplicationContext as? [String : Date] {
+      watchStartTime = watchContext["startTime"]
     }
   }
   
