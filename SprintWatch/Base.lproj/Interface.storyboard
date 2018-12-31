@@ -26,6 +26,11 @@
                         <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="time" id="1os-4D-iuJ" userLabel="timeStampLabel">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
+                        <button width="1" alignment="left" verticalAlignment="bottom" title="restart" id="E8L-NR-1QD">
+                            <connections>
+                                <action selector="restartTapped" destination="AgC-eL-Hgc" id="yCG-4h-Xs0"/>
+                            </connections>
+                        </button>
                     </items>
                     <connections>
                         <outlet property="X_Accel_Label" destination="btb-K1-wFJ" id="b2a-dM-7Mr"/>

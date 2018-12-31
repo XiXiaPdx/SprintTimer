@@ -41,45 +41,56 @@ class InterfaceController: WKInterfaceController {
       }
       
       motionManager.accelerometerUpdateInterval = sampleInterval
+      startMonitoring()
       
-      motionManager.startDeviceMotionUpdates(to: .main) {
-        [weak self] (data, error) in
-        guard let data = data, error == nil else {
-          return
-        }
-        
-        let xAccel = data.userAcceleration.x
-        let yAccel = data.userAcceleration.y
-        let zAccel = data.userAcceleration.z
-       
-        if xAccel > 2.0 || yAccel > 2.0 || zAccel > 2.0  {
-          self?.X_Accel_Label.setText("X: \(String(format: "%.2f", xAccel))")
-          self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
-          self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
-          
-          let dateFormatter : DateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "mm:ss:SS"
-          let date = Date()
-          let dateString = dateFormatter.string(from: date)
-          self?.timeStampLabel.setText(dateString)
-          
-          //update to phone
-          if let validSession = self?.session {
-            let watchContext = ["startTime": dateString]
-            do {
-              try validSession.updateApplicationContext(watchContext)
-            } catch {
-              print("Something went wrong")
-            }
-          }
-          
-        }
-    
-      }
+      
     }
   
+  
+  func startMonitoring () {
+    motionManager.startDeviceMotionUpdates(to: .main) {
+      [weak self] (data, error) in
+      guard let data = data, error == nil else {
+        return
+      }
+      
+      let xAccel = data.userAcceleration.x
+      let yAccel = data.userAcceleration.y
+      let zAccel = data.userAcceleration.z
+      
+      if xAccel > 2.0 || yAccel > 2.0 || zAccel > 2.0  {
+        self?.X_Accel_Label.setText("X: \(String(format: "%.2f", xAccel))")
+        self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
+        self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
+        
+        let dateFormatter : DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm:ss:SS"
+        let date = Date()
+        let dateString = dateFormatter.string(from: date)
+        self?.timeStampLabel.setText(dateString)
+        
+        //update to phone
+        if let validSession = self?.session {
+          let watchContext = ["startTime": dateString]
+          do {
+            try validSession.updateApplicationContext(watchContext)
+            
+            // stop motion sension
+            self?.motionManager.stopDeviceMotionUpdates()
+            
+          } catch {
+            print("Something went wrong")
+          }
+        }
+      }
+    }
+  }
     
-    override func willActivate() {
+  @IBAction func restartTapped() {
+    startMonitoring()
+  }
+  
+  override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
