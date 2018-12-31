@@ -14,12 +14,20 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="SprintWatch" customModuleProvider="target">
                     <items>
-                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" verticalAlignment="center" text="Hello" id="btb-K1-wFJ">
+                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="X Accel" id="btb-K1-wFJ">
                             <color key="textColor" red="0.47637600052068096" green="1" blue="0.18746535652138152" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </label>
+                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="Y Accel" id="mzj-1T-SlI">
+                            <color key="textColor" red="1" green="0.68796083654185503" blue="0.18478133807149655" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </label>
+                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="Z Accel" id="bwT-7o-wQK">
+                            <color key="textColor" red="1" green="0.11632151310549277" blue="0.079509205296006691" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </label>
                     </items>
                     <connections>
                         <outlet property="X_Accel_Label" destination="btb-K1-wFJ" id="b2a-dM-7Mr"/>
+                        <outlet property="Y_Accel_Label" destination="mzj-1T-SlI" id="Y1d-xs-zuj"/>
+                        <outlet property="Z_Accel_Label" destination="bwT-7o-wQK" id="IKA-33-fX2"/>
                     </connections>
                 </controller>
             </objects>

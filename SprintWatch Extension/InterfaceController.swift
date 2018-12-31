@@ -14,6 +14,10 @@ import CoreMotion
 class InterfaceController: WKInterfaceController {
   
   @IBOutlet var X_Accel_Label: WKInterfaceLabel!
+  @IBOutlet var Y_Accel_Label: WKInterfaceLabel!
+  @IBOutlet var Z_Accel_Label: WKInterfaceLabel!
+
+
   
   let motionManager: CMMotionManager = CMMotionManager()
   let queue = OperationQueue()
@@ -30,25 +34,29 @@ class InterfaceController: WKInterfaceController {
       }
       
       motionManager.accelerometerUpdateInterval = sampleInterval
-      motionManager.startAccelerometerUpdates(to: .main) {
+      motionManager.startDeviceMotionUpdates(to: .main) {
         [weak self] (data, error) in
         guard let data = data, error == nil else {
           return
         }
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let num = NSNumber(value: data.acceleration.x)
-        let finalNumber = numberFormatter.string(from: num)
-
-       
-        self?.X_Accel_Label.setText(finalNumber)
         
+        let xAccel = data.userAcceleration.x
+        let yAccel = data.userAcceleration.y
+        let zAccel = data.userAcceleration.z
+       
        
         
+        
+        if xAccel > 2.0 || yAccel > 2.0 || zAccel > 2.0  {
+          self?.X_Accel_Label.setText("X: \(String(format: "%.2f", xAccel))")
+          self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
+          self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
+        }
+    
         // ...
       }
-      
     }
+  
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
