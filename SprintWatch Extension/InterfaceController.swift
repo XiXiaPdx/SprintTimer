@@ -16,11 +16,10 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var X_Accel_Label: WKInterfaceLabel!
   @IBOutlet var Y_Accel_Label: WKInterfaceLabel!
   @IBOutlet var Z_Accel_Label: WKInterfaceLabel!
-
+  @IBOutlet var timeStampLabel: WKInterfaceLabel!
 
   
   let motionManager: CMMotionManager = CMMotionManager()
-  let queue = OperationQueue()
   let wristLocationIsLeft = WKInterfaceDevice.current().wristLocation == .left
   let sampleInterval = 0.01
   
@@ -34,6 +33,7 @@ class InterfaceController: WKInterfaceController {
       }
       
       motionManager.accelerometerUpdateInterval = sampleInterval
+      
       motionManager.startDeviceMotionUpdates(to: .main) {
         [weak self] (data, error) in
         guard let data = data, error == nil else {
@@ -44,16 +44,19 @@ class InterfaceController: WKInterfaceController {
         let yAccel = data.userAcceleration.y
         let zAccel = data.userAcceleration.z
        
-       
-        
-        
         if xAccel > 2.0 || yAccel > 2.0 || zAccel > 2.0  {
           self?.X_Accel_Label.setText("X: \(String(format: "%.2f", xAccel))")
           self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
           self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
+          
+          let dateFormatter : DateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "mm:ss:SS"
+          let date = Date()
+          let dateString = dateFormatter.string(from: date)
+          self?.timeStampLabel.setText(dateString)
+          
         }
     
-        // ...
       }
     }
   
