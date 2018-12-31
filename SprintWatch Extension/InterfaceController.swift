@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import CoreMotion
+import WatchConnectivity
 
 
 class InterfaceController: WKInterfaceController {
@@ -17,8 +18,9 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var Y_Accel_Label: WKInterfaceLabel!
   @IBOutlet var Z_Accel_Label: WKInterfaceLabel!
   @IBOutlet var timeStampLabel: WKInterfaceLabel!
-
   
+  let session = WCSession.default
+
   let motionManager: CMMotionManager = CMMotionManager()
   let wristLocationIsLeft = WKInterfaceDevice.current().wristLocation == .left
   let sampleInterval = 0.01
@@ -27,6 +29,12 @@ class InterfaceController: WKInterfaceController {
         super.awake(withContext: context)
         
         // Configure interface objects here.
+      
+      //connectivity session
+      session.delegate = self
+      session.activate()
+      
+      
       guard motionManager.isAccelerometerAvailable else {
         print("CM Motion manager not available")
         return
@@ -55,6 +63,16 @@ class InterfaceController: WKInterfaceController {
           let dateString = dateFormatter.string(from: date)
           self?.timeStampLabel.setText(dateString)
           
+          //update to phone
+          if let validSession = self?.session {
+            let watchContext = ["startTime": dateString]
+            do {
+              try validSession.updateApplicationContext(watchContext)
+            } catch {
+              print("Something went wrong")
+            }
+          }
+          
         }
     
       }
@@ -71,4 +89,12 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+extension InterfaceController: WCSessionDelegate {
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    
+  }
+  
+  
 }
