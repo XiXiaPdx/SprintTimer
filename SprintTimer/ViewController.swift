@@ -120,9 +120,18 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
           return
         }
         let difference =         (checkMotion as! Date).timeIntervalSince(watchStartTime)
-        
         self.timeLabel.text = String(format: "%.3f", difference)
-
+        
+        //send back to watch the difference time
+        if let validSession = self.session {
+          let phoneContext = ["calculatedTime": difference]
+          do {
+            try validSession.updateApplicationContext(phoneContext)
+            
+          } catch {
+            print("Something went wrong")
+          }
+        }
       }
     }
   }

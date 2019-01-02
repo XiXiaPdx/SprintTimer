@@ -15,27 +15,26 @@
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="SprintWatch" customModuleProvider="target">
                     <items>
                         <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="X Accel" id="btb-K1-wFJ">
-                            <color key="textColor" red="0.47637600052068096" green="1" blue="0.18746535652138152" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
                         <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="Y Accel" id="mzj-1T-SlI">
-                            <color key="textColor" red="1" green="0.68796083654185503" blue="0.18478133807149655" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
-                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="Z Accel" id="bwT-7o-wQK">
-                            <color key="textColor" red="1" green="0.11632151310549277" blue="0.079509205296006691" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </label>
-                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="time" id="1os-4D-iuJ" userLabel="timeStampLabel">
+                        <label width="0.90000000000000002" widthAdjustment="3" alignment="center" text="Ready to sprint" id="1os-4D-iuJ" userLabel="timeStampLabel">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
                         <button width="1" alignment="left" verticalAlignment="bottom" title="restart" id="E8L-NR-1QD">
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="restartTapped" destination="AgC-eL-Hgc" id="yCG-4h-Xs0"/>
                             </connections>
                         </button>
                     </items>
+                    <color key="backgroundColor" red="1" green="0.1163215131" blue="0.079509205299999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <connections>
                         <outlet property="X_Accel_Label" destination="btb-K1-wFJ" id="b2a-dM-7Mr"/>
                         <outlet property="Y_Accel_Label" destination="mzj-1T-SlI" id="Y1d-xs-zuj"/>
-                        <outlet property="Z_Accel_Label" destination="bwT-7o-wQK" id="IKA-33-fX2"/>
+                        <outlet property="restartButton" destination="E8L-NR-1QD" id="IDe-Br-RzJ"/>
                         <outlet property="timeStampLabel" destination="1os-4D-iuJ" id="aHr-Uy-DMY"/>
                     </connections>
                 </controller>

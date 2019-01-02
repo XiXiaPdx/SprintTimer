@@ -16,9 +16,9 @@ class InterfaceController: WKInterfaceController {
   
   @IBOutlet var X_Accel_Label: WKInterfaceLabel!
   @IBOutlet var Y_Accel_Label: WKInterfaceLabel!
-  @IBOutlet var Z_Accel_Label: WKInterfaceLabel!
   @IBOutlet var timeStampLabel: WKInterfaceLabel!
   
+  @IBOutlet var restartButton: WKInterfaceButton!
   let session = WCSession.default
 
   let motionManager: CMMotionManager = CMMotionManager()
@@ -34,7 +34,6 @@ class InterfaceController: WKInterfaceController {
       session.delegate = self
       session.activate()
       
-      
       guard motionManager.isAccelerometerAvailable else {
         print("CM Motion manager not available")
         return
@@ -43,40 +42,46 @@ class InterfaceController: WKInterfaceController {
       motionManager.accelerometerUpdateInterval = sampleInterval
       startMonitoring()
       
-      
     }
   
   
   func startMonitoring () {
+    restartButton.setHidden(true)
+    X_Accel_Label.setText("waiting...")
+    Y_Accel_Label.setText("waiting...")
+    timeStampLabel.setText("Ready to sprint!")
+
     motionManager.startDeviceMotionUpdates(to: .main) {
       [weak self] (data, error) in
       guard let data = data, error == nil else {
+        self?.X_Accel_Label.setText("motion update err")
         return
       }
       
       let xAccel = data.userAcceleration.x
       let yAccel = data.userAcceleration.y
-      let zAccel = data.userAcceleration.z
       
-      if xAccel > 2.0 || yAccel > 2.0 || zAccel > 2.0  {
+      if xAccel > 4.0 || yAccel > 4.0 {
+        
+        // stop motion sension
+        self?.motionManager.stopDeviceMotionUpdates()
+        self?.timeStampLabel.setText("You're sprinting!")
+        
+        
         self?.X_Accel_Label.setText("X: \(String(format: "%.2f", xAccel))")
         self?.Y_Accel_Label.setText("Y: \(String(format: "%.2f", yAccel))")
-        self?.Z_Accel_Label.setText("Z: \(String(format: "%.2f", zAccel))")
         
-        let dateFormatter : DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm:ss:SS"
+//        let dateFormatter : DateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "mm:ss:SS"
         let date = Date()
-        let dateString = dateFormatter.string(from: date)
-        self?.timeStampLabel.setText(dateString)
+//        let dateString = dateFormatter.string(from: date)
+//        self?.timeStampLabel.setText(dateString)
         
         //update to phone
         if let validSession = self?.session {
           let watchContext = ["startTime": date]
           do {
             try validSession.updateApplicationContext(watchContext)
-            
-            // stop motion sension
-            self?.motionManager.stopDeviceMotionUpdates()
             
           } catch {
             print("Something went wrong")
@@ -105,6 +110,21 @@ class InterfaceController: WKInterfaceController {
 extension InterfaceController: WCSessionDelegate {
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     
+  }
+  
+  func processApplicationContext() {
+    if let phoneContext = session.receivedApplicationContext as? [String : TimeInterval] {
+      let calculatedSprintTime = phoneContext["calculatedTime"]
+      let sprintTimeAsString = String(format: "%.3f", calculatedSprintTime!)
+      timeStampLabel.setText("Time! \(sprintTimeAsString)")
+    }
+    restartButton.setHidden(false)
+  }
+  
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    DispatchQueue.main.async() {
+      self.processApplicationContext()
+    }
   }
   
   
