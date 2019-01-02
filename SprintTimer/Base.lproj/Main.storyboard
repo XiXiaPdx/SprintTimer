@@ -50,6 +50,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yhR-jW-MYK">
+                                <rect key="frame" x="229" y="282" width="109" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -69,6 +76,7 @@
                     <connections>
                         <outlet property="blackWhitePreview" destination="En5-dG-tKQ" id="QpM-B3-smQ"/>
                         <outlet property="outputLog" destination="WLE-cr-qmm" id="YeG-PD-QMl"/>
+                        <outlet property="timeLabel" destination="yhR-jW-MYK" id="0XS-qf-oRe"/>
                         <outlet property="videoPreviewView" destination="cQ8-Iw-g63" id="W73-mN-h2N"/>
                     </connections>
                 </viewController>

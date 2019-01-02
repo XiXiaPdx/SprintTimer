@@ -8,13 +8,18 @@
 
 import UIKit
 import AVFoundation
+import WatchConnectivity
+
 
 class ViewController: UIViewController {
   @IBOutlet weak var videoPreviewView: UIView!
   @IBOutlet weak var outputLog: UILabel!
-  
   @IBOutlet weak var blackWhitePreview: UIImageView!
+  @IBOutlet weak var timeLabel: UILabel!
   
+  var session: WCSession?
+  var watchStartTime: Date?
+
   var captureSession: AVCaptureSession?
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var captureDeviceInput: AVCaptureDeviceInput?
@@ -25,6 +30,14 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    if WCSession.isSupported() {
+      session = WCSession.default
+      session?.delegate = self
+      session?.activate()
+    }
+    
+    processApplicationContext()
   
     //should use discovery session instead, seems more robust
     captureDevice = AVCaptureDevice.default(AVCaptureDevice.DeviceType.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
@@ -97,13 +110,63 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
 //      let imageView = UIImageView(image: self.image)
 //      imageView.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 200, height: 200))
       self.blackWhitePreview.image = self.imageAndTime?.value(forKey: "image") as! UIImage
-      let checkMotion = self.imageAndTime?.value(forKey: "time") as! String
-      if checkMotion != "0" {
+      let checkMotion = self.imageAndTime?.value(forKey: "time")
+      if checkMotion is NSNull {
+        return
+      } else {
         self.captureSession?.stopRunning()
+        guard let watchStartTime = self.watchStartTime else {
+          print("watchStartTime is nil")
+          return
+        }
+        let difference =         (checkMotion as! Date).timeIntervalSince(watchStartTime)
+        self.timeLabel.text = String(format: "%.3f", difference)
+        
+        //send back to watch the difference time
+        if let validSession = self.session {
+          let phoneContext = ["calculatedTime": difference]
+          do {
+            try validSession.updateApplicationContext(phoneContext)
+            
+          } catch {
+            print("Something went wrong")
+          }
+        }
       }
     }
   }
 }
+
+extension ViewController: WCSessionDelegate {
+  
+  func processApplicationContext() {
+    if let watchContext = session?.receivedApplicationContext as? [String : Date] {
+      watchStartTime = watchContext["startTime"]
+    }
+  }
+  
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    DispatchQueue.main.async() {
+      self.processApplicationContext()
+    }
+  }
+  
+  
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    
+  }
+  
+  func sessionDidBecomeInactive(_ session: WCSession) {
+    
+  }
+  
+  func sessionDidDeactivate(_ session: WCSession) {
+    
+  }
+  
+  
+}
+
 
 
 
