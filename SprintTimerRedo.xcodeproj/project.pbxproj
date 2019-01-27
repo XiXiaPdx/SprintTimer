@@ -15,6 +15,7 @@
 		D592597821FE53F60070B94C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D592597721FE53F60070B94C /* Assets.xcassets */; };
 		D592597B21FE53F60070B94C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D592597921FE53F60070B94C /* LaunchScreen.storyboard */; };
 		D592598621FE53F60070B94C /* SprintTimerRedoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592598521FE53F60070B94C /* SprintTimerRedoTests.swift */; };
+		D592599121FE5E380070B94C /* CameraHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D592599021FE5E380070B94C /* CameraHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		D592598121FE53F60070B94C /* SprintTimerRedoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SprintTimerRedoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D592598521FE53F60070B94C /* SprintTimerRedoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SprintTimerRedoTests.swift; sourceTree = "<group>"; };
 		D592598721FE53F60070B94C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D592599021FE5E380070B94C /* CameraHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraHelper.swift; sourceTree = "<group>"; };
 		D694FD5E17B142EEE6E8DE88 /* Pods-SprintTimerRedo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SprintTimerRedo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SprintTimerRedo/Pods-SprintTimerRedo.release.xcconfig"; sourceTree = "<group>"; };
 		FFD9D3657ABF010F678D134F /* Pods-SprintTimerRedo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SprintTimerRedo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SprintTimerRedo/Pods-SprintTimerRedo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +117,7 @@
 				D592597721FE53F60070B94C /* Assets.xcassets */,
 				D592597921FE53F60070B94C /* LaunchScreen.storyboard */,
 				D592597C21FE53F60070B94C /* Info.plist */,
+				D592599021FE5E380070B94C /* CameraHelper.swift */,
 			);
 			path = SprintTimerRedo;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			files = (
 				D592597321FE53F10070B94C /* ViewController.swift in Sources */,
 				D592597121FE53F10070B94C /* AppDelegate.swift in Sources */,
+				D592599121FE5E380070B94C /* CameraHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
